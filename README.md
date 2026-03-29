@@ -70,7 +70,7 @@ EHMS is an enterprise-grade, menu-driven console application that provides compr
 * java edu.hostel.cli.HostelApp
 
   ### Project Structure
-'''text
+```text
 Hostel-Maintenance-System/
 ├── src/
 │   └── edu/
@@ -92,22 +92,22 @@ Hostel-Maintenance-System/
 │               └── DatabaseIO.java   # Persistent CSV storage
 ├── tickets_db.csv                    # Automatically generated database
 └── README.md
-'''
+```
 
 ## Advanced Concepts Implementation
 
 ### 1. Algorithmic Queue Sorting
-'''java
+```java
 // Implements Comparable interface to force PriorityQueue sorting rules
 @Override
 public int compareTo(Ticket other) {
     // Urgent priority (1) comes before Normal priority (3)
     return Integer.compare(this.priority.getLevel(), other.priority.getLevel());
 }
-'''
+```
 
 ### 2. Persistent I/O with Try-With-Resources
-'''java
+```java
 public void saveAll(List<Ticket> tickets) {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))) {
         for (Ticket t : tickets) {
@@ -118,10 +118,10 @@ public void saveAll(List<Ticket> tickets) {
         System.out.println("Error saving to database: " + e.getMessage());
     }
 }
-'''
+```
 
 ### 3. Business Logic Validation
-'''java
+```java
 public void resolveTicket(String ticketId) {
     boolean found = false;
     for (Ticket t : ticketQueue) {
@@ -134,5 +134,55 @@ public void resolveTicket(String ticketId) {
         throw new TicketNotFoundException("Active ticket #" + ticketId + " not found.");
     }
 }
-'''
+```
+
+## Features
+
+### Core Functionality
+- [x] Create standardized maintenance tickets
+- [x] Abstract User/Student profiles attached to tickets
+- [x] Automated prioritization of urgent issues
+- [x] Mark tickets as resolved to clear queues
+
+### Architecture & Stability
+- [x] Persistent `.csv` database generation
+- [x] Auto-loading previous state on application boot
+- [x] Custom error handling to prevent CLI crashes
+- [x] Strict enum-based data validation
+
+---
+
+## Usage Examples
+
+### Sample Application Flow
+
+**1. Initial Setup & Loading**
+```text
+=== Enterprise Hostel Management System ===
+Loading existing tickets from tickets_db.csv...
+System ready.
+
+1. File Complaint | 2. View Pending | 3. Resolve Ticket | 4. Exit
+Select: 1
+Student Name: Om
+Phone: 555-0199
+Room Number: Block B - 104
+Category (PLUMBING, ELECTRICAL, WIFI, CARPENTRY, AC, OTHER): ELECTRICAL
+Priority (URGENT, HIGH, NORMAL, LOW): URGENT
+Description: Live wire exposed near the study desk.
+✅ Ticket filed successfully! ID: 8F2A1C
+
+Select: 2
+[URGENT] ID: 8F2A1C | Room: Block B - 104
+[NORMAL] ID: 3D9B44 | Room: Block A - 201
+[LOW] ID: 77CA11 | Room: Block C - 404
+
+Select: 3
+Enter Ticket ID to resolve: 8F2A1C
+✅ Ticket resolved.
+
+Select: 4
+Saving database to tickets_db.csv...
+Data saved. Exiting system.
+```
 
