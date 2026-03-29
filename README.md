@@ -94,6 +94,55 @@ Hostel-Maintenance-System/
 └── README.md
 ```
 
+## Technical Implementation
+
+### Technical Requirements Coverage
+
+| Syllabus Topic | Implementation Location | Description |
+| :--- | :--- | :--- |
+| **Platform & Setup** | | |
+| Evolution of Java | README.md | Timeline of major Java releases documented |
+| Java ME vs SE vs EE | README.md | Architecture explanations and platform targeting |
+| JDK/JRE/JVM | README.md | Architecture diagram and component explanations |
+| Installation Steps | README.md | Environment setup instructions |
+| **Language Fundamentals** | | |
+| Syntax & Structure | `HostelApp.java` | Main class with clear package structure |
+| Packages | All source files | `edu.hostel.*` package hierarchy |
+| Variables & Operators | Multiple classes | Primitive and object variables utilized |
+| Decision Structures | `HostelApp.java` | `switch` statements for CLI routing |
+| Loops | `TicketService.java` | `for-each` and `while` loops for queue traversal |
+| Arrays & Strings | Multiple classes | `String.split()` parsing and array manipulation |
+| **Object-Oriented Programming** | | |
+| Encapsulation | All domain classes | Private fields with strict getters/setters |
+| Inheritance | `Person` → `Student` | Abstract base class inheritance |
+| Abstraction | `Person.java` | Abstract classes preventing raw instantiation |
+| Polymorphism | `TicketService.java` | Interface implementation handling |
+| Access Modifiers | All classes | `private`, `protected`, and `public` routing |
+| Constructor Types | `Student.java`, `Ticket.java` | Parameterized constructors and super() calls |
+| Immutability | `IssueCategory.java` | Final fields within enumerations |
+| **Advanced Concepts** | | |
+| Interfaces | `Ticket.java` | Implements `Comparable<Ticket>` |
+| Functional Interfaces | `TicketService.java` | PriorityQueue comparator logic |
+| Enums | `Priority`, `IssueCategory` | Type-safe enumerations with assigned levels |
+| Upcasting/Downcasting | `TicketService.java` | Object casting within Java Collections |
+| Method Overriding | `Ticket.java` | Overriding `compareTo()` for triage logic |
+| Design Patterns | `DatabaseIO.java` | Separation of Concerns (SoC) / DAO Pattern |
+| **Exception Handling** | | |
+| Exception Types | `HostelApp.java` | Checked vs Unchecked exception management |
+| Custom Exceptions | `TicketNotFoundException.java` | Custom runtime exceptions extending `RuntimeException` |
+| Try-Catch-Finally | `DatabaseIO.java` | Try-with-resources for safe file stream closures |
+| Multi-catch | `HostelApp.java` | Handling multiple CLI input mismatch scenarios |
+| **File I/O & Data Persistence** | | |
+| Path & Files API | `DatabaseIO.java` | Modern file existence checks and pathing |
+| Streams | `DatabaseIO.java` | `BufferedReader` / `BufferedWriter` streaming |
+| Delimiter Parsing | `DatabaseIO.java` | CSV data serialization and deserialization |
+| **Date/Time API** | | |
+| LocalDate/DateTime | `Ticket.java` | `LocalDateTime.now()` for issue tracking |
+| Formatting | `Ticket.java` | `DateTimeFormatter` pattern generation |
+| **Data Structures** | | |
+| Collections Framework | `TicketService.java` | Utilizing `ArrayList` and `PriorityQueue` |
+| Algorithmic Sorting | `TicketService.java` | Automated triage overriding FIFO principles |
+
 ## Advanced Concepts Implementation
 
 ### 1. Algorithmic Queue Sorting
