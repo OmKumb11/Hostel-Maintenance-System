@@ -70,25 +70,69 @@ EHMS is an enterprise-grade, menu-driven console application that provides compr
 * java edu.hostel.cli.HostelApp
 
   ### Project Structure
- * Hostel-Maintenance-System/
-*├── src/
-*│   └── edu/
-*│       └── hostel/
-*│           ├── cli/                  # Command Line Interface
-*│           │   └── HostelApp.java
-*│           ├── domain/               # Domain Models
-*│           │   ├── Person.java       # Abstract base class
-*│           │   ├── Student.java      # Inherits Person
-*│           │   ├── Ticket.java       # Core entity (Implements Comparable)
-*│           │   ├── IssueCategory.java# Enumeration
-*│           │   └── Priority.java     # Enumeration
-*│           ├── exception/            # Custom Exceptions
-*│           │   ├── InvalidRoomException.java
-*│           │   └── TicketNotFoundException.java
-*│           ├── service/              # Business Logic
-*│           │   └── TicketService.java
-*│           └── io/                   # I/O Operations
-*│               └── DatabaseIO.java   # Persistent CSV storage
-*├── tickets_db.csv                    # Automatically generated database
-*└── README.md
+'''text
+Hostel-Maintenance-System/
+├── src/
+│   └── edu/
+│       └── hostel/
+│           ├── cli/                  # Command Line Interface
+│           │   └── HostelApp.java
+│           ├── domain/               # Domain Models
+│           │   ├── Person.java       # Abstract base class
+│           │   ├── Student.java      # Inherits Person
+│           │   ├── Ticket.java       # Core entity (Implements Comparable)
+│           │   ├── IssueCategory.java# Enumeration
+│           │   └── Priority.java     # Enumeration
+│           ├── exception/            # Custom Exceptions
+│           │   ├── InvalidRoomException.java
+│           │   └── TicketNotFoundException.java
+│           ├── service/              # Business Logic
+│           │   └── TicketService.java
+│           └── io/                   # I/O Operations
+│               └── DatabaseIO.java   # Persistent CSV storage
+├── tickets_db.csv                    # Automatically generated database
+└── README.md
+'''
+
+## Advanced Concepts Implementation
+
+### 1. Algorithmic Queue Sorting
+'''java
+// Implements Comparable interface to force PriorityQueue sorting rules
+@Override
+public int compareTo(Ticket other) {
+    // Urgent priority (1) comes before Normal priority (3)
+    return Integer.compare(this.priority.getLevel(), other.priority.getLevel());
+}
+'''
+
+### 2. Persistent I/O with Try-With-Resources
+'''java
+public void saveAll(List<Ticket> tickets) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))) {
+        for (Ticket t : tickets) {
+            bw.write(t.toCsvRecord());
+            bw.newLine();
+        }
+    } catch (IOException e) {
+        System.out.println("Error saving to database: " + e.getMessage());
+    }
+}
+'''
+
+### 3. Business Logic Validation
+'''java
+public void resolveTicket(String ticketId) {
+    boolean found = false;
+    for (Ticket t : ticketQueue) {
+        if (t.getTicketId().equals(ticketId)) {
+            t.markResolved();
+            found = true; break;
+        }
+    }
+    if (!found) {
+        throw new TicketNotFoundException("Active ticket #" + ticketId + " not found.");
+    }
+}
+'''
 
