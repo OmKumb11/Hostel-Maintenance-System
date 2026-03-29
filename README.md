@@ -234,4 +234,40 @@ Select: 4
 Saving database to tickets_db.csv...
 Data saved. Exiting system.
 ```
+## Testing Scenarios
 
+### Test Data
+The application automatically generates and utilizes `tickets_db.csv` for testing data persistence. If the file is deleted, the system will gracefully create a fresh database on the next successful save.
+
+### Manual Testing Scenarios
+
+**1. Input Validation Testing**
+* Attempt to enter alphabetical characters when the menu expects an integer (Scanner mismatch handling).
+* Input unregistered Enums for Category (e.g., typing `ROOF` instead of `CARPENTRY`).
+* Leave the description string completely blank to verify string processing.
+
+**2. Business Rule Testing**
+* **Automated Triage:** Submit three tickets in the order of `LOW`, `NORMAL`, and `URGENT`. Verify that the `URGENT` ticket prints first in the pending queue.
+* **Resolution Lock:** Attempt to resolve a ticket ID that has already been marked `[RESOLVED]` to ensure it cannot be processed twice.
+
+**3. File Operations Testing**
+* **Cold Boot:** Delete the `tickets_db.csv` file and launch the application to verify it boots without crashing.
+* **Data Persistence:** Create a ticket, immediately exit via Option 4, and reboot to verify the ticket state was saved.
+
+**4. Exception Handling Testing**
+* Trigger the `TicketNotFoundException` by attempting to resolve a randomized 6-character ID that does not exist in the active queue.
+* Test application recovery by ensuring the program returns to the main menu after an exception rather than terminating.
+
+---
+
+## System Requirements
+
+### Runtime Requirements
+* **Java:** Java 8 or higher (Java 17+ recommended for optimal garbage collection)
+* **Memory:** 512MB RAM minimum
+* **Storage:** < 10MB disk space (Application + CSV Database combined)
+
+### Development Requirements
+* **Compiler:** JDK 8 or higher
+* **IDE:** VS Code, IntelliJ IDEA, or Eclipse
+* **Version Control:** Git
